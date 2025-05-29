@@ -20,8 +20,7 @@ function getHumanChoice (){
 }
 
 function playRound (humanChoice, computerChoice){
-
-    let result = "win/lose/tie";
+    let result;
     if (humanChoice == computerChoice){
         result = "tie";
     }
@@ -57,7 +56,23 @@ function playRound (humanChoice, computerChoice){
 
 function playGame (){
     for (let i = 0; i < 5; i++){
-        console.log(playRound(getHumanChoice(), getComputerChoice()));
+        let humanChoice = getHumanChoice();
+        console.log("You: " + humanChoice);
+        let computerChoice = getComputerChoice();
+        console.log("Computer: " + computerChoice);
+        console.log(playRound(humanChoice, computerChoice));
+    }
+
+    console.log(`\nFinal Score — You: ${humanScore}, Computer: ${computerScore}`);
+
+    if (humanScore > computerScore){
+        console.log("You are the ultimate winner!");
+    }
+    else if (humanScore == computerScore){
+        console.log("It's a draw!");
+    }
+    else{
+        console.log("The computer is the ultimate winner!");
     }
 }
 
