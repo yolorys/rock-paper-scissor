@@ -19,14 +19,6 @@ function getComputerChoice (){
     }
 }
 
-function getHumanChoice (){
-    btns.forEach((button) => {
-        button.addEventListener("click", () => {
-            return button.innerHTML;
-        })
-    })
-}
-
 function playRound (humanChoice, computerChoice){
     let result;
     if (humanChoice == computerChoice){
