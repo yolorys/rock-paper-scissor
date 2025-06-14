@@ -27,8 +27,6 @@ function getHumanChoice (){
     })
 }
 
-console.log(getHumanChoice);
-
 function playRound (humanChoice, computerChoice){
     let result;
     if (humanChoice == computerChoice){
