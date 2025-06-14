@@ -1,6 +1,11 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const btns = document.querySelectorAll("button");
+
+const body = document.querySelector("body");
+
+
 function getComputerChoice (){
     let rand = parseInt(Math.random()*10%3);
     if (rand == 0){
@@ -15,9 +20,14 @@ function getComputerChoice (){
 }
 
 function getHumanChoice (){
-    let pr = prompt("Please choose rock/paper/scissor: ");
-    return pr;
+    btns.forEach((button) => {
+        button.addEventListener("click", () => {
+            return button.innerHTML;
+        })
+    })
 }
+
+console.log(getHumanChoice);
 
 function playRound (humanChoice, computerChoice){
     let result;
@@ -38,42 +48,45 @@ function playRound (humanChoice, computerChoice){
             else result = "lose";
         }
     }
+    const choices = document.createElement("p");
+    choices.textContent = `You: ${humanChoice} VS Computer: ${computerChoice}`;
+    body.appendChild(choices);
+
+    const d = document.createElement("div");
     
     if (result == "win") {
         humanScore += 1;
-        return "You " + result + "! " + humanChoice + " beats " + computerChoice;
+        d.textContent = "You " + result + "! " + humanChoice + " beats " + computerChoice;
     }
 
     else if (result == "lose") {
         computerScore += 1;
-        return "You " + result + "! " + computerChoice + " beats " + humanChoice; 
+        d.textContent = "You " + result + "! " + computerChoice + " beats " + humanChoice; 
     }
 
     else{
-        return "You " + result + "! No one wins or loses"; 
+        d.textContent = "You " + result + "! No one wins or loses"; 
     }
+    body.appendChild(d);
+
+    const score = document.createElement("p");
+    score.textContent = `Score — You: ${humanScore}, Computer: ${computerScore}`;
+    body.appendChild(score);
 }
 
-function playGame (){
-    for (let i = 0; i < 5; i++){
-        let humanChoice = getHumanChoice();
-        console.log("You: " + humanChoice);
-        let computerChoice = getComputerChoice();
-        console.log("Computer: " + computerChoice);
-        console.log(playRound(humanChoice, computerChoice));
-    }
+btns.forEach(button => {
+    button.addEventListener("click", () => {
+        const humanChoice = button.innerHTML;
+        const computerChoice = getComputerChoice();
+        playRound(humanChoice, computerChoice);
 
-    console.log(`\nFinal Score — You: ${humanScore}, Computer: ${computerScore}`);
-
-    if (humanScore > computerScore){
-        console.log("You are the ultimate winner!");
-    }
-    else if (humanScore == computerScore){
-        console.log("It's a draw!");
-    }
-    else{
-        console.log("The computer is the ultimate winner!");
-    }
-}
-
-playGame();
+        const winlose = document.createElement("h1");
+        if (humanScore == 3) {
+            winlose.textContent = "You won.";
+        }
+        if (computerScore == 3) {
+            winlose.textContent = "Computer won. You lost.";
+        }
+        body.appendChild(winlose);
+    });
+});
